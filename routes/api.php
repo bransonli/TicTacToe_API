@@ -17,3 +17,35 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+//Return all the games 
+Route::get('/games', function(){
+
+});
+
+//Return games with specified ID 
+Route::get('/games/{id}', function(){
+
+
+});
+
+
+
+//
+Route::post('/games', function(){
+
+
+});
+
+
+//Playing  
+Route::post('/games/{id}', function($id){
+    $player = request()->input('player');
+    $move = request()->input('move');
+
+
+});
+
+
+
