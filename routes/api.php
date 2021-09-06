@@ -22,14 +22,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //Return all the games 
 Route::get('/games', function(){
-    dd("this");
-
+    return Game::all();
 });
 
 //Return games with specified ID 
-Route::get('/games/{id}', function(){
-    dd("this");
-
+Route::get('/games/{id}', function($id){
+    $games = Game::find($id);
+    if (!$games) {
+        return response()->json(['message' => 'Document not found'], 404)
+    }
 });
 
 
