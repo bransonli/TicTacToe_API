@@ -29,7 +29,7 @@ Route::get('/games', function(){
 Route::get('/games/{id}', function($id){
     $games = Game::find($id);
     if (!$games) {
-        return response()->json(['message' => 'Document not found'], 404)
+        return response()->json(['message' => 'Document not found'], 404);
     }
 });
 
