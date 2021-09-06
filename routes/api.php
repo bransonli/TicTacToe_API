@@ -20,6 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
+
+
 //Return all the games 
 Route::get('/games', function(){
     return Game::all();
@@ -27,9 +29,11 @@ Route::get('/games', function(){
 
 //Return games with specified ID 
 Route::get('/games/{id}', function($id){
-    $games = Game::find($id);
-    if (!$games) {
+    $game = Game::find($id);
+    if (!$game) {
         return response()->json(['message' => 'Document not found'], 404);
+    } else {
+        return $game;
     }
 });
 
@@ -85,7 +89,7 @@ Route::post('/games/{id}', function($id){
     $temp_arr_1 = implode("", $board[0]); 
     $temp_arr_2 = implode("", $board[1]);
     $temp_arr_3 = implode("", $board[2]);
-    $temp_arr_combined = implode("", $temp_arr_1, $temp_arr_2, $temp_arr_3);
+    $temp_arr_combined = array($temp_arr_1, $temp_arr_2, $temp_arr_3);
 
     $string_board = implode("", $temp_arr_combined);
     $game->board = $string_board;
@@ -99,20 +103,20 @@ Route::post('/games/{id}', function($id){
         $counter = 0; 
         $reference = $board[$i][1];
 
-            for ($j = 0; $j<3; $j+=1){
-                if ($board[$i][$j] != $reference) {
-                    $reference = $board[$i][$j];
-                } else {
-                    $counter = $counter + 1;
-                }
+        for ($j = 0; $j<3; $j+=1){
+            if ($board[$i][$j] != $reference) {
+                $reference = $board[$i][$j];
+            } else {
+                $counter = $counter + 1;
             }
+        }
 
-            if ($counter == 3) {
+        if ($counter == 3) {
 
-                $game->winner = $player;
-                $game->save();
-                return $game;
-            }
+            $game->winner = $player;
+            $game->save();
+            return $game;
+        }
     }
 
     //vertical 
