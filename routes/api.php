@@ -46,7 +46,7 @@ Route::post('/games', function(){
     $game->winner = 0;
     $game->player = 1;
     $game->save();
-    return $game->board;
+    return $game;
 });
 
 
